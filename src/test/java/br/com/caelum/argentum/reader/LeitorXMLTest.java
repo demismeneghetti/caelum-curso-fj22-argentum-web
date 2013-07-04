@@ -13,7 +13,8 @@ public class LeitorXMLTest {
 
     @Test
     public void testLeitorDeXMlCarregaListaDeNegocio() {
-        String xmlDeTeste = 
+
+    	String xmlDeTeste = 
         		"<list>" 
         		+ "    <negociacao>" 
         		+ "        <preco>43.5</preco>"
@@ -33,6 +34,7 @@ public class LeitorXMLTest {
         Assert.assertEquals(negocios.get(0).getPreco(), 43.5, 0.0001);
         Assert.assertEquals(negocios.get(0).getQuantidade(), 1000);
         Assert.assertEquals(negocios.size(), 1);
+    
     }
 
 }

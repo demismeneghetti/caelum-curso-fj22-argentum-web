@@ -12,6 +12,7 @@ public class CandlestickFactoryTest {
 
 	@Test
 	public void sequenciaSimplesDeNegociacao() {
+
 		Calendar hoje = Calendar.getInstance();
 
 		Negociacao negociacao1 = new Negociacao(40.5, 100, hoje);
@@ -19,7 +20,8 @@ public class CandlestickFactoryTest {
 		Negociacao negociacao3 = new Negociacao(39.8, 100, hoje);
 		Negociacao negociacao4 = new Negociacao(42.3, 100, hoje);
 
-		List<Negociacao> negociacoes = Arrays.asList(negociacao1, negociacao2, negociacao3, negociacao4);
+		List<Negociacao> negociacoes = Arrays.asList(negociacao1, negociacao2,
+				negociacao3, negociacao4);
 
 		CandlestickFactory fabrica = new CandlestickFactory();
 		Candlestick candle = fabrica.constroiCandleParaData(hoje, negociacoes);
@@ -29,22 +31,26 @@ public class CandlestickFactoryTest {
 		Assert.assertEquals(39.8, candle.getMinimo(), 0.00001);
 		Assert.assertEquals(45.0, candle.getMaximo(), 0.00001);
 		Assert.assertEquals(16760.0, candle.getVolume(), 0.00001);
+
 	}
-	
+
 	@Test
 	public void semNegociacaoGeraCandleComZeros() {
+
 		Calendar hoje = Calendar.getInstance();
-		
-		List<Negociacao> negociacoes = Arrays.asList(); 
+
+		List<Negociacao> negociacoes = Arrays.asList();
 
 		CandlestickFactory fabrica = new CandlestickFactory();
 		Candlestick candle = fabrica.constroiCandleParaData(hoje, negociacoes);
-		
+
 		Assert.assertEquals(0.0, candle.getVolume(), 0.00001);
+
 	}
-	
+
 	@Test
 	public void apenasUmaNegociacaoGeraCandleComValoresIguais() {
+
 		Calendar hoje = Calendar.getInstance();
 
 		Negociacao negociacao = new Negociacao(40.5, 100, hoje);
@@ -59,10 +65,12 @@ public class CandlestickFactoryTest {
 		Assert.assertEquals(40.5, candle.getMinimo(), 0.00001);
 		Assert.assertEquals(40.5, candle.getMaximo(), 0.00001);
 		Assert.assertEquals(4050.0, candle.getVolume(), 0.00001);
+
 	}
-	
+
 	@Test
 	public void paraNegociacoesDeTresDiasDistintosGeraTresCandles() {
+
 		Calendar hoje = Calendar.getInstance();
 
 		Negociacao negociacao1 = new Negociacao(40.5, 100, hoje);
@@ -82,9 +90,9 @@ public class CandlestickFactoryTest {
 		Negociacao negociacao7 = new Negociacao(51.8, 100, depois);
 		Negociacao negociacao8 = new Negociacao(52.3, 100, depois);
 
-		List<Negociacao> negociacoes = Arrays.asList(negociacao1, negociacao2, 
-			negociacao3, negociacao4, negociacao5, negociacao6, negociacao7, 
-			negociacao8);
+		List<Negociacao> negociacoes = Arrays.asList(negociacao1, negociacao2,
+				negociacao3, negociacao4, negociacao5, negociacao6,
+				negociacao7, negociacao8);
 
 		CandlestickFactory fabrica = new CandlestickFactory();
 
@@ -97,5 +105,7 @@ public class CandlestickFactoryTest {
 		Assert.assertEquals(49.3, candles.get(1).getFechamento(), 0.00001);
 		Assert.assertEquals(51.8, candles.get(2).getAbertura(), 0.00001);
 		Assert.assertEquals(52.3, candles.get(2).getFechamento(), 0.00001);
-	}	
+
+	}
+
 }

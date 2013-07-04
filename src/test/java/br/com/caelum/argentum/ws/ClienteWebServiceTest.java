@@ -13,8 +13,11 @@ public class ClienteWebServiceTest {
     public void testaWebService() {
 
         ClienteWebService ws = new ClienteWebService();
+
         List<Negociacao> negociacoes = ws.getNegociacoes();
        
         Assert.assertNotNull(negociacoes);
+
     }
+
 }
