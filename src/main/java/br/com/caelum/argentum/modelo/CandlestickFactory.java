@@ -6,7 +6,7 @@ import java.util.List;
 
 public class CandlestickFactory {
 
-	public Candlestick constroiCandleParaData(Calendar data,
+	public Candle constroiCandleParaData(Calendar data,
 			List<Negociacao> negocios) {
 
 		double maximo = Double.MIN_VALUE;
@@ -17,12 +17,13 @@ public class CandlestickFactory {
 
 			volume += negocio.getVolume();
 
-			if (negocio.getPreco() > maximo) {
-				maximo = negocio.getPreco();
+			double preco = negocio.getPreco();
+			if (preco > maximo) {
+				maximo = preco;
 			}
 
-			if (negocio.getPreco() < minimo) {
-				minimo = negocio.getPreco();
+			if (preco < minimo) {
+				minimo = preco;
 			}
 		}
 
@@ -30,14 +31,14 @@ public class CandlestickFactory {
 		double fechamento = negocios.isEmpty() ? 0 : negocios.get(
 				negocios.size() - 1).getPreco();
 
-		return new Candlestick(abertura, fechamento, minimo, maximo, volume,
+		return new Candle(abertura, fechamento, minimo, maximo, volume,
 				data);
 
 	}
 
-	public List<Candlestick> constroiCandles(List<Negociacao> todasNegociacoes) {
+	public List<Candle> constroiCandles(List<Negociacao> todasNegociacoes) {
 
-		List<Candlestick> candles = new ArrayList<Candlestick>();
+		List<Candle> candles = new ArrayList<Candle>();
 		List<Negociacao> negociacoesDoDia = new ArrayList<Negociacao>();
 
 		Calendar dataAtual = todasNegociacoes.get(0).getData();
@@ -46,10 +47,7 @@ public class CandlestickFactory {
 			// se não for mesmo dia, fecha candle e reinicia variáveis
 			if (!negociacao.isMesmoDia(dataAtual)) {
 
-				Candlestick candleDoDia = constroiCandleParaData(dataAtual,
-						negociacoesDoDia);
-
-				candles.add(candleDoDia);
+				criaEGuardaCandle(candles, negociacoesDoDia, dataAtual);
 
 				negociacoesDoDia = new ArrayList<Negociacao>();
 
@@ -60,13 +58,18 @@ public class CandlestickFactory {
 			negociacoesDoDia.add(negociacao);
 
 		}
-		// adiciona último candle
-		Candlestick candleDoDia = constroiCandleParaData(dataAtual,
-				negociacoesDoDia);
-		candles.add(candleDoDia);
+		criaEGuardaCandle(candles, negociacoesDoDia, dataAtual);
 
 		return candles;
 
+	}
+
+	private void criaEGuardaCandle(List<Candle> candles,
+			List<Negociacao> negociacoesDoDia, Calendar dataAtual) {
+		Candle candleDoDia = constroiCandleParaData(dataAtual,
+				negociacoesDoDia);
+
+		candles.add(candleDoDia);
 	}
 
 }
