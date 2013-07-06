@@ -17,19 +17,43 @@
 			<br/>
 			<br/> 
 		
-			<p:panel	header = "Negociações" 
-						footer = "Caelum - Argentum Web">
+			<p:panel header="Dados do gráfico">
+				<h:form id="dadosGrafico">
+					<p:growl/>
+					<h:panelGrid columns="2">
+					    <p:outputLabel for="titulo" value="Título:"/>
+					    <p:inputText 	id="titulo" 
+					    				value="#{argentumBean.titulo}" 
+					    				required="true"
+					    				requiredMessage = "Campo de preenchimento obrigatório."
+					    				validatorMessage = "Informe ao mínimo 3 caracteres.">
+							<f:validateLength minimum="3" />
+						</p:inputText>
+						<h:commandLink 	action="#{argentumBean.preparaDados}" 
+										value="Gerar gráfico" />
+				    </h:panelGrid>
+				</h:form>
+			</p:panel>
 			
-			<p:lineChart	value = "#{argentumBean.modeloGrafico}" 
-							legendPosition = "e" 
-							title = "PETR4"/>
+			<br/>
+			
+			<p:panel 	header="Negociações" 
+						footer="Argentum Web" 
+    					rendered="#{argentumBean.modeloGrafico != null}">
+			
+			<p:lineChart 	value="#{argentumBean.modeloGrafico}" 
+							legendPosition="e" 
+                    		title="#{argentumBean.titulo}" />
+			
+			<br/>
+			<br/>
 			
 			<h:form id="listaNegociacao">		
 			
 				<p:dataTable	var = "negociacao"
 								value = "#{argentumBean.negociacoes}"
 								paginator = "true"
-								rows = "20">
+								rows = "5">
 	
 					<p:column 	sortBy = "#{negociacao.preco}"
 								headerText = "Preço" >

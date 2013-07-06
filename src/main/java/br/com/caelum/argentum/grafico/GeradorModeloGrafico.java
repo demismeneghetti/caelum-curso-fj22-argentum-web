@@ -25,8 +25,8 @@ public class GeradorModeloGrafico {
 
 	public void plotaIndicador(Indicador indicador) {
 
-		LineChartSeries chartSerie = new LineChartSeries("MMS - Fechamento");
-
+		LineChartSeries chartSerie = new LineChartSeries(indicador.toString());
+		
 		for (int i = comeco; i <= fim; i++) {
 			double valor = indicador.calcula(i, serie);
 			chartSerie.set(i, valor);

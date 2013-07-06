@@ -10,6 +10,7 @@ import com.thoughtworks.xstream.io.xml.DomDriver;
 
 public class LeitorXML {
 	
+	@SuppressWarnings("unchecked")
 	public List<Negociacao> carrega(InputStream inputStream) {
 		
 		XStream stream = new XStream(new DomDriver());

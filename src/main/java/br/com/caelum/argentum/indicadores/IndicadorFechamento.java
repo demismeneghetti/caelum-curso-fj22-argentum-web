@@ -1,6 +1,6 @@
-package br.com.caelum.argentum.modelo;
+package br.com.caelum.argentum.indicadores;
 
-import br.com.caelum.argentum.indicadores.Indicador;
+import br.com.caelum.argentum.modelo.SerieTemporal;
 
 public class IndicadorFechamento implements Indicador {
 
